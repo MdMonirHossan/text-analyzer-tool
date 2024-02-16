@@ -1,6 +1,7 @@
 const {
   countWords,
   countCharacters,
+  countSentences,
 } = require("../src/utils/text-analyzer.util");
 
 /**
@@ -73,4 +74,39 @@ describe("countCharacters", () => {
     expect(result).toBe(13);
   });
 });
+/**
+ * @Test countSentences
+ * @param {String} text - The text to count the sentence from.
+ * @description This test will calculate the number of sentences in the given text.
+ * @case
+ *   - counts the number of sentences in the text
+ *   - handle empty sentence count
+ *   - handle sentences ending with different punctuation marks
+ *   - handle sentences with multiple whitespace between punctuation marks
+ */
+describe("countSentences", () => {
+  it("counts the number of sentences in the text", () => {
+    const text = "This is a test sentence one. Another sentence. Any more?";
+    const result = countSentences(text);
+    expect(result).toBe(3);
+  });
 
+  it("handle empty sentence count", () => {
+    const text = "";
+    const result = countSentences(text);
+    expect(result).toBe(0);
+  });
+
+  it("handle sentences ending with different punctuation marks", () => {
+    const text =
+      "This is a test sentence. Another sentence? Yet another test sentence!";
+    const result = countSentences(text);
+    expect(result).toBe(3);
+  });
+
+  it("handle sentences with multiple whitespace between punctuation marks", () => {
+    const text = "Sentence one.    Sentence two.";
+    const result = countSentences(text);
+    expect(result).toBe(2);
+  });
+});

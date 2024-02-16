@@ -17,5 +17,14 @@ function countWords(text) {
 function countCharacters(text) {
   return text.length;
 }
+/**
+ * @function countSentences
+ * @param {string} text:  The input text for which the number of sentences needs to be counted.
+ * @description This method will return the number of sentences that have been counted for the given text.
+ * @returns The number of sentences in the input text.
+ */
+function countSentences(text) {
+  return text.split(/[.!?]+/).filter(Boolean).length;
+}
 
-module.exports = { countWords, countCharacters };
+module.exports = { countWords, countCharacters, countSentences };
