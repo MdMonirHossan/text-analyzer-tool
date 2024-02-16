@@ -3,6 +3,7 @@ const {
   countCharacters,
   countSentences,
   countParagraphs,
+  longestWords,
 } = require("../src/utils/text-analyzer.util");
 
 /**
@@ -123,7 +124,7 @@ describe("countSentences", () => {
  *   - handle sentences with multiple whitespace between punctuation marks
  */
 describe("countParagraphs", () => {
-  it("counts the number of paragraphs using \n\n", () => {
+  it("counts the number of paragraphs using double line breaks", () => {
     const text = "This is a test paragraph one. \n\nAnother paragraph";
     const result = countParagraphs(text);
     expect(result).toBe(2);
@@ -145,7 +146,8 @@ describe("countParagraphs", () => {
   });
 
   it("handle paragraph with multiple line breaks", () => {
-    const text ="This is a paragraph. \n\n\n\nAnother paragraph.\n\n\n\nLast paragraph.";
+    const text =
+      "This is a paragraph. \n\n\n\nAnother paragraph.\n\n\n\nLast paragraph.";
     const result = countParagraphs(text);
     expect(result).toBe(3);
   });
@@ -154,5 +156,53 @@ describe("countParagraphs", () => {
     const text = "This is a single paragraph to test.";
     const result = countParagraphs(text);
     expect(result).toBe(1);
+  });
+});
+
+/**
+ * @Test longestWords
+ * @param {String} text - The text to find longest words.
+ * @description This test will find the longest words from paragraph in the given text.
+ * @case
+ *   - returns the longest word in each paragraph
+ *   - handle paragraph with leading and trailing whitespace
+ *   - handle empty input
+ *   - handle text with single paragraph
+ *   - handle multi line breaks paragraph
+ */
+describe("longestWords", () => {
+  it("returns the longest word in each paragraph", () => {
+    const text =
+      "This is a test paragraph one. \n\nAnother paragraph to fin longest word";
+    const result = longestWords(text);
+    expect(result).toEqual(["paragraph", "paragraph"]);
+  });
+
+  it("handle paragraph with leading and trailing whitespace", () => {
+    const text =
+      "  This is first paragraph with leading whitespace.  \n\n    This is another paragraph with trailing whitespace.   ";
+    const result = longestWords(text);
+    expect(result).toEqual(["whitespace", "whitespace"]);
+  });
+
+  it("handle empty input", () => {
+    const text = "";
+    const result = longestWords(text);
+    expect(result).toEqual([]);
+  });
+
+  it("handle text with single paragraph", () => {
+    const text = "This is a single paragraph.";
+    const result = longestWords(text);
+    expect(result).toEqual(["paragraph"]);
+  });
+
+  it("handle multi line breaks paragraph", () => {
+    const text = `This is first paragraph.
+    This is second paragraph.
+    
+    This is last paragraph.`;
+    const result = longestWords(text);
+    expect(result).toEqual(["paragraph", "paragraph", "paragraph"]);
   });
 });
