@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const { countWords } = require("../utils/text-analyzer.util");
+const { countWords, countCharacters } = require("../utils/text-analyzer.util");
 
 const router = express.Router();
 
@@ -47,7 +47,41 @@ router.get("/word-count", (req, res) => {
     );
     const wordCount = countWords(text);
     console.log(`word count ${wordCount}`);
+    // Explicitly close file descriptor
+    fs.closeSync(fs.openSync(filePath, "r"));
     res.json({ total_words: wordCount });
+  } catch (err) {
+    // console.error(err);
+    res.status(500).json({ message: "Error reading from the file" });
+  }
+});
+
+/**
+ * @swagger
+ *  /character-count:
+ *   get:
+ *     summary: This GET api will return the character count from the text file.
+ *     responses:
+ *       '200':
+ *          description: Successful response with the character count.
+ *       '500':
+ *          description: Error message.
+ *
+ */
+router.get("/character-count", (req, res) => {
+  // Get the file_path from the query if it provided
+  const { file_path } = req.query;
+  console.log("---------- File Path: " + file_path);
+  try {
+    const text = fs.readFileSync(
+      file_path ? path.join(__dirname, file_path) : filePath,
+      "utf8"
+    );
+    const characterCount = countCharacters(text);
+    console.log(`character count ${characterCount}`);
+    // Explicitly close file descriptor
+    fs.closeSync(fs.openSync(filePath, "r"));
+    res.json({ total_characters: characterCount });
   } catch (err) {
     // console.error(err);
     res.status(500).json({ message: "Error reading from the file" });

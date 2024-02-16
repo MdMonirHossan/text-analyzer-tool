@@ -19,5 +19,4 @@ app.listen(3000, () => {
   console.log(`Swagger server listening on http://localhost:3000/api-docs`);
 });
 
-
 module.exports = app;

@@ -73,3 +73,4 @@ describe("countCharacters", () => {
     expect(result).toBe(13);
   });
 });
+
