@@ -26,6 +26,10 @@ const options = {
 // This is used to generate Swagger specifications based on the provided options.
 const specs = swaggerJsdoc(options);
 
+/**
+ * The route uses the swaggerUi.serve middleware to serve the Swagger UI assets.
+ *  The route uses the swaggerUi.setup middleware to set up the Swagger UI using the provided specs.
+ */
 module.exports = (app) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 };
