@@ -26,5 +26,20 @@ function countCharacters(text) {
 function countSentences(text) {
   return text.split(/[.!?]+/).filter(Boolean).length;
 }
+/**
+ * @function countParagraphs
+ * @param {string} text : The input text for which the number of paragraphs needs to be counted.
+ * @description This method will return the number of paragraphs that have been counted for the given text.
+ * @returns The number of the paragraph in the input text.
+ */
+function countParagraphs(text) {
+  return text.split(/[\n\n]+/).filter((paragraph) => paragraph.trim() !== "")
+    .length;
+}
 
-module.exports = { countWords, countCharacters, countSentences };
+module.exports = {
+  countWords,
+  countCharacters,
+  countSentences,
+  countParagraphs,
+};

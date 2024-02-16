@@ -2,6 +2,7 @@ const {
   countWords,
   countCharacters,
   countSentences,
+  countParagraphs,
 } = require("../src/utils/text-analyzer.util");
 
 /**
@@ -108,5 +109,50 @@ describe("countSentences", () => {
     const text = "Sentence one.    Sentence two.";
     const result = countSentences(text);
     expect(result).toBe(2);
+  });
+});
+
+/**
+ * @Test countParagraphs
+ * @param {String} text - The text to count the paragraphs from.
+ * @description This test will calculate the number of paragraph in the given text.
+ * @case
+ *   - counts the number of paragraphs in the text
+ *   - handle empty sentence count
+ *   - handle sentences ending with different punctuation marks
+ *   - handle sentences with multiple whitespace between punctuation marks
+ */
+describe("countParagraphs", () => {
+  it("counts the number of paragraphs using \n\n", () => {
+    const text = "This is a test paragraph one. \n\nAnother paragraph";
+    const result = countParagraphs(text);
+    expect(result).toBe(2);
+  });
+
+  it("counts the number of paragraphs using formatted text", () => {
+    const text = `
+    This is a test paragraph one.
+    Another paragraph
+    `;
+    const result = countParagraphs(text);
+    expect(result).toBe(2);
+  });
+
+  it("handle empty paragraph count", () => {
+    const text = "";
+    const result = countParagraphs(text);
+    expect(result).toBe(0);
+  });
+
+  it("handle paragraph with multiple line breaks", () => {
+    const text ="This is a paragraph. \n\n\n\nAnother paragraph.\n\n\n\nLast paragraph.";
+    const result = countParagraphs(text);
+    expect(result).toBe(3);
+  });
+
+  it("handle with no paragraph", () => {
+    const text = "This is a single paragraph to test.";
+    const result = countParagraphs(text);
+    expect(result).toBe(1);
   });
 });
