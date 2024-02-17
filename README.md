@@ -35,13 +35,13 @@ To install and run this project locally, follow these steps:
 1. Clone the project repository:
 
 ```bash
-    git clone https://github.com/
+    git clone git@github.com:MdMonirHossan/text-analyzer-tool.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-    cd text-analyzer
+    cd text-analyzer-tool
 ```
 
 3. Install dependencies:
@@ -129,6 +129,7 @@ The project defines several logging levels to categorize log messages based on t
 - `error`: Logs critical errors that require immediate attention.
 - `warn`: Logs warnings or potential issues that may need attention.
 - `info`: Logs informational messages about the application's operation, such as startup messages or routine activities.
+- `debug`: Logs detailed debugging information for troubleshooting and development purposes.
 
 ### Viewing Logs
 
