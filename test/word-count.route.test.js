@@ -32,7 +32,7 @@ describe("GET /word-count", () => {
 
   it("responds with word count of the given text file", async () => {
     const response = await request(app)
-      .get("/word-count")
+      .get("/api/word-count")
       .query({ file_path: "../../sample.txt" });
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ total_words: 16 });
@@ -40,7 +40,7 @@ describe("GET /word-count", () => {
 
   it("responds with an error message for wrong file path", async () => {
     const response = await request(app)
-      .get("/word-count")
+      .get("/api/word-count")
       .query({ file_path: "wrong.txt" });
     expect(response.statusCode).toBe(500);
     expect(response.body.message).toBe("Error reading from the file");

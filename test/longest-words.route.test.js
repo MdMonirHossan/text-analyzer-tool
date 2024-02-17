@@ -32,7 +32,7 @@ describe("GET /longest-words", () => {
 
   it("responds with the longest words of the given text file", async () => {
     const response = await request(app)
-      .get("/longest-words")
+      .get("/api/longest-words")
       .query({ file_path: "../../sample.txt" });
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ longest_words: ["quick"] });
@@ -40,7 +40,7 @@ describe("GET /longest-words", () => {
 
   it("responds with an error message for wrong file path", async () => {
     const response = await request(app)
-      .get("/longest-words")
+      .get("/api/longest-words")
       .query({ file_path: "wrong.txt" });
     expect(response.statusCode).toBe(500);
     expect(response.body).toEqual({

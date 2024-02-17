@@ -34,7 +34,7 @@ describe("GET /character-count", () => {
 
   it("responds with character count of the given text file", async () => {
     const response = await request(app)
-      .get("/character-count")
+      .get("/api/character-count")
       .query({ file_path: "../../sample.txt" });
     expect(response.statusCode).toBe(200);
     expect(response.body).toEqual({ total_characters: 75 });
@@ -43,7 +43,7 @@ describe("GET /character-count", () => {
 
   it("responds with an error message for wrong file path", async () => {
     const response = await request(app)
-      .get("/character-count")
+      .get("/api/character-count")
       .query({ file_path: "wrong.txt" });
     expect(response.statusCode).toBe(500);
     expect(response.body).toEqual({

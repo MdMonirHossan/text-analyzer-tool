@@ -15,23 +15,7 @@ const router = express.Router();
 
 /**
  * @swagger
- *  /:
- *   get:
- *     summary: Welcome to the text analyzer api
- *     responses:
- *       '200':
- *          description: Successful response with the welcome message
- *       '400':
- *          description: Bad response
- *
- */
-router.get("", (req, res) => {
-  res.send("Welcome to the Text Analyzer");
-});
-
-/**
- * @swagger
- *  /word-count:
+ *  /api/word-count:
  *   get:
  *     summary: This GET api will return the word count from the text file.
  *     responses:
@@ -62,7 +46,7 @@ router.get("/word-count", (req, res) => {
 
 /**
  * @swagger
- *  /character-count:
+ *  /api/character-count:
  *   get:
  *     summary: This GET api will return the character count from the text file.
  *     responses:
@@ -92,7 +76,7 @@ router.get("/character-count", (req, res) => {
 
 /**
  * @swagger
- *  /sentence-count:
+ *  /api/sentence-count:
  *   get:
  *     summary: This GET api will return the sentence count from the text file.
  *     responses:
@@ -122,7 +106,7 @@ router.get("/sentence-count", (req, res) => {
 
 /**
  * @swagger
- *  /paragraph-count:
+ *  /api/paragraph-count:
  *   get:
  *     summary: This GET api will return the paragraph count from the text file.
  *     responses:
@@ -152,7 +136,7 @@ router.get("/paragraph-count", (req, res) => {
 
 /**
  * @swagger
- *  /longest-words:
+ *  /api/longest-words:
  *   get:
  *     summary: This GET api will return the longest words for each paragraph from the text file.
  *     responses:

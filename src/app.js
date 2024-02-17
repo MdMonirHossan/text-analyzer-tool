@@ -2,7 +2,6 @@ const express = require("express");
 const swaggerSetup = require("./swagger/swagger-setup");
 const textAnalyzerRoutes = require("./routes/text-analyzer.route");
 const expressWinston = require("express-winston");
-const { transports, format } = require("winston");
 const logger = require("./logger");
 
 // Create an instance of Express framework
@@ -20,7 +19,7 @@ app.use(
 app.use(express.json());
 
 // Mount all routes to express
-app.use("/", textAnalyzerRoutes);
+app.use("/api", textAnalyzerRoutes);
 
 // Integrate swagger documentation
 swaggerSetup(app);
