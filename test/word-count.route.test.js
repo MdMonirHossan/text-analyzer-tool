@@ -1,8 +1,6 @@
 const request = require("supertest");
 const app = require("../src/app");
 
-const port = 3002;
-
 /**
  * @Test /word-count
  * @request_method GET
@@ -16,36 +14,33 @@ describe("GET /word-count", () => {
   let server;
 
   beforeAll((done) => {
-    server = app.listen(port, (err) => {
-      if (err) {
-        return done(err); // Return error if server fails to start
-      }
-      console.log(`Server is running on port ${port}`);
-      done(); // Call done to indicate server is ready
+    server = app.listen(0, () => {
+      console.log(
+        `Words count Server is running on port ${server.address().port}`
+      );
+      done();
     });
   });
 
   afterAll((done) => {
-    if (server) {
-      server.close(done); // Close the server if it exists
-    } else {
-      done(); // Call done if server is not initialized
-    }
+    server.close(done);
   });
 
   it("responds with word count of the given text file", async () => {
-    const response = await request(app).get("/word-count").query({ file_path: "../../sample.txt" })
-    expect(response.statusCode).toBe(200)
-    expect(response.body).toEqual({ total_words: 16 })
+    const response = await request(app)
+      .get("/word-count")
+      .query({ file_path: "../../sample.txt" });
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toEqual({ total_words: 16 });
   });
 
   it("responds with an error message for wrong file path", async () => {
-    const response = await request(app).get("/word-count").query({ file_path: "wrong.txt" });
-    expect(response.statusCode).toBe(500)
+    const response = await request(app)
+      .get("/word-count")
+      .query({ file_path: "wrong.txt" });
+    expect(response.statusCode).toBe(500);
     expect(response.body).toEqual({
       message: "Error reading from the file",
-    })
+    });
   });
 });
-
-

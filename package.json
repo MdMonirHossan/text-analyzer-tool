@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "test": "jest --runInBand --detectOpenHandles --forceExit",
-    "sentence-test": "jest --testPathPattern=test/sentence-count.route.test.js --forceExit",
-    "paragraph-test": "jest --testPathPattern=test/paragraph-count.route.test.js --forceExit",
-    "longest-words-test": "jest --testPathPattern=test/longest-words.route.test.js --forceExit"
+    "test": "jest --forceExit --detectOpenHandles",
+    "word:count:test": "jest --testPathPattern=test/word-count.route.test.js --forceExit",
+    "character:count:test": "jest --testPathPattern=test/character-count.route.test.js --forceExit",
+    "sentence:count:test": "jest --testPathPattern=test/sentence-count.route.test.js --forceExit",
+    "paragraph:count:test": "jest --testPathPattern=test/paragraph-count.route.test.js --forceExit",
+    "longest:words:test": "jest --testPathPattern=test/longest-words.route.test.js --forceExit",
+    "util:test": "jest --testPathPattern=test/utils.test.js --forceExit"
   },
   "jest": {
     "testEnvironment": "node",
-    "testURL": "http://localhost",
     "testTimeout": 30000,
     "verbose": true,
     "moduleFileExtensions": ["js"],

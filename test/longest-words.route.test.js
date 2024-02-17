@@ -11,6 +11,20 @@ const app = require("../src/app");
  *  - responds with an error message for wrong file path
  */
 describe("GET /longest-words", () => {
+  let server;
+
+  beforeAll((done) => {
+    server = app.listen(0, () => {
+      console.log(
+        `Longest Words Server is running on port ${server.address().port}`
+      );
+      done();
+    });
+  });
+
+  afterAll((done) => {
+    server.close(done);
+  });
 
   it("responds with the longest words of the given text file", async () => {
     const response = await request(app)

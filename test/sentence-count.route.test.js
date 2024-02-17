@@ -1,8 +1,6 @@
 const request = require("supertest");
 const app = require("../src/app");
 
-const port = 3006;
-
 /**
  * @Test /sentence-count
  * @request_method GET
@@ -13,27 +11,19 @@ const port = 3006;
  *  - responds with an error message for wrong file path
  */
 describe("GET /sentence-count", () => {
+  let server;
+
   beforeAll((done) => {
-    server = app.listen(port, (err) => {
-      if (err) {
-        return done(err); // Return error if server fails to start
-      }
-      console.log(`Server is running on port ${port}`);
-      done(); // Call done to indicate server is ready
+    server = app.listen(0, () => {
+      console.log(
+        `Sentence count Server is running on port ${server.address().port}`
+      );
+      done();
     });
   });
 
   afterAll((done) => {
-    if (server) {
-      server.close((err) => {
-        if (err) {
-          return done(err); // Return error if server fails to close
-        }
-        done(); // Call done to indicate server is closed
-      });
-    } else {
-      done(); // Call done if server is not initialized
-    }
+    server.close(done);
   });
 
   it("responds with sentence count of the given text file", async () => {
