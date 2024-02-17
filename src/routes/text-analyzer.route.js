@@ -1,7 +1,11 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const { countWords, countCharacters } = require("../utils/text-analyzer.util");
+const {
+  countWords,
+  countCharacters,
+  countSentences,
+} = require("../utils/text-analyzer.util");
 
 const router = express.Router();
 
@@ -82,6 +86,47 @@ router.get("/character-count", (req, res) => {
     // Explicitly close file descriptor
     fs.closeSync(fs.openSync(filePath, "r"));
     res.json({ total_characters: characterCount });
+  } catch (err) {
+    // console.error(err);
+    res.status(500).json({ message: "Error reading from the file" });
+  }
+});
+
+/**
+ * @swagger
+ *  /sentence-count:
+ *   get:
+ *     summary: This GET api will return the sentence count from the text file.
+ *     responses:
+ *       '200':
+ *          description: Successful response with the sentence count.
+ *       '500':
+ *          description: Error message.
+ *
+ */
+router.get("/sentence-count", (req, res) => {
+  // Get the file_path from the query if it provided
+  const { file_path } = req.query;
+  console.log("---------- File Path: " + file_path);
+  try {
+    /* Read the text file
+     * if file path is found in the query then read from query file path.
+     * otherwise read from from the default file path
+     */
+    const text = fs.readFileSync(
+      file_path ? path.join(__dirname, file_path) : filePath,
+      "utf8"
+    );
+
+    // Get the sentence count
+    const sentenceCount = countSentences(text);
+    console.log(`sentence count ${sentenceCount}`);
+
+    // Explicitly close file descriptor
+    fs.closeSync(fs.openSync(filePath, "r"));
+
+    // Responds with the total sentence count
+    res.json({ total_sentences: sentenceCount });
   } catch (err) {
     // console.error(err);
     res.status(500).json({ message: "Error reading from the file" });
