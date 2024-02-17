@@ -1,9 +1,20 @@
 const express = require("express");
 const swaggerSetup = require("./swagger/swagger-setup");
 const textAnalyzerRoutes = require("./routes/text-analyzer.route");
+const expressWinston = require("express-winston");
+const { transports, format } = require("winston");
+const logger = require("./logger");
 
 // Create an instance of Express framework
 const app = express();
+
+// Winston Middleware for logging
+app.use(
+  expressWinston.logger({
+    winstonInstance: logger,
+    statusLevels: true,
+  })
+);
 
 // Middleware to Parse Json
 app.use(express.json());
