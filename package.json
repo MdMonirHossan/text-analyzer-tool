@@ -5,7 +5,20 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "test": "PORT=3001 jest --runInBand --detectOpenHandles --forceExit"
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testURL": "http://localhost",
+    "testTimeout": 30000,
+    "verbose": true,
+    "moduleFileExtensions": ["js"],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.js$",
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["json", "lcov", "text", "clover"],
+    "globals": {
+      "__DEV__": true
+    }
   },
   "keywords": [],
   "author": "",

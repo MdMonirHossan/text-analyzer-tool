@@ -14,9 +14,13 @@ app.use("/", textAnalyzerRoutes);
 // Integrate swagger documentation
 swaggerSetup(app);
 
-app.listen(3000, () => {
-  console.log(`Starting express server at http://localhost:3000`);
-  console.log(`Swagger server listening on http://localhost:3000/api-docs`);
+const port = 3000;
+
+// app.listen(port);
+
+app.listen(port, () => {
+  console.log(`Starting express server at http://localhost:${port}`);
+  console.log(`Swagger server listening on http://localhost:${port}/api-docs`);
 });
 
 module.exports = app;
