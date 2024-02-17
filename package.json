@@ -7,7 +7,8 @@
     "dev": "nodemon src/app.js",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
     "sentence-test": "jest --testPathPattern=test/sentence-count.route.test.js --forceExit",
-    "paragraph-test": "jest --testPathPattern=test/paragraph-count.route.test.js --forceExit"
+    "paragraph-test": "jest --testPathPattern=test/paragraph-count.route.test.js --forceExit",
+    "longest-words-test": "jest --testPathPattern=test/longest-words.route.test.js --forceExit"
   },
   "jest": {
     "testEnvironment": "node",

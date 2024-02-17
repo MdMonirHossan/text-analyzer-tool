@@ -6,6 +6,7 @@ const {
   countCharacters,
   countSentences,
   countParagraphs,
+  longestWords,
 } = require("../utils/text-analyzer.util");
 
 const router = express.Router();
@@ -169,6 +170,47 @@ router.get("/paragraph-count", (req, res) => {
 
     // Responds with the total paragraph count
     res.json({ total_paragraphs: paragraphCount });
+  } catch (err) {
+    // console.error(err);
+    res.status(500).json({ message: "Error reading from the file" });
+  }
+});
+
+/**
+ * @swagger
+ *  /longest-words:
+ *   get:
+ *     summary: This GET api will return the longest words for each paragraph from the text file.
+ *     responses:
+ *       '200':
+ *          description: Successful response with the list of longest words in each paragraph.
+ *       '500':
+ *          description: Error message.
+ *
+ */
+router.get("/longest-words", (req, res) => {
+  // Get the file_path from the query if it provided
+  const { file_path } = req.query;
+  console.log("---------- File Path: " + file_path);
+  try {
+    /* Read the text file
+     * if file path is found in the query then read from query file path. (For test cases only)
+     * otherwise read from from the default file path
+     */
+    const text = fs.readFileSync(
+      file_path ? path.join(__dirname, file_path) : filePath,
+      "utf8"
+    );
+
+    // Get the list of longest words
+    const longestWordsInParagraph = longestWords(text);
+    console.log(`longest words ${longestWordsInParagraph}`);
+
+    // Explicitly close file descriptor
+    fs.closeSync(fs.openSync(filePath, "r"));
+
+    // Responds with the list of longest words
+    res.json({ longest_words: longestWordsInParagraph });
   } catch (err) {
     // console.error(err);
     res.status(500).json({ message: "Error reading from the file" });
