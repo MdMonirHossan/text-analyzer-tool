@@ -11,17 +11,21 @@ const app = require("../src/app");
  *  - responds with an error message for wrong file path
  */
 describe("GET /word-count", () => {
+  // Initialize a variable server
   let server;
 
+  // This function is called once before any of the tests in the test suite are run.
+  // The port is dynamically assigned by passing '0' to the listener.
   beforeAll((done) => {
     server = app.listen(0, () => {
       console.log(
-        `Words count Server is running on port ${server.address().port}`
+        `Words count test server is running on port ${server.address().port}`
       );
       done();
     });
   });
 
+  // This function is called once after all of the tests in the test suite have finished running.
   afterAll((done) => {
     server.close(done);
   });

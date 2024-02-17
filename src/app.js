@@ -22,14 +22,9 @@ if (process.env.NODE_ENV !== "test") {
   app.listen(port, () => {
     console.log(`Starting express server at http://localhost:${port}`);
     console.log(
-      `Swagger server listening on http://localhost:${port}/api-docs`
+      `Swagger documentation is on http://localhost:${port}/api-docs`
     );
   });
 }
-
-// app.listen(port, () => {
-//   console.log(`Starting express server at http://localhost:${port}`);
-//   console.log(`Swagger server listening on http://localhost:${port}/api-docs`);
-// });
 
 module.exports = app;

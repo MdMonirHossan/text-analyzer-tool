@@ -51,10 +51,15 @@ router.get("/word-count", (req, res) => {
       file_path ? path.join(__dirname, file_path) : filePath,
       "utf8"
     );
+
+    // Get the word count from utils function
     const wordCount = countWords(text);
     console.log(`word count ${wordCount}`);
+
     // Explicitly close file descriptor
     fs.closeSync(fs.openSync(filePath, "r"));
+
+    // Responds with the total words count
     res.json({ total_words: wordCount });
   } catch (err) {
     // console.error(err);
@@ -83,10 +88,15 @@ router.get("/character-count", (req, res) => {
       file_path ? path.join(__dirname, file_path) : filePath,
       "utf8"
     );
+
+    // Get the character count from utils function
     const characterCount = countCharacters(text);
     console.log(`character count ${characterCount}`);
+
     // Explicitly close file descriptor
     fs.closeSync(fs.openSync(filePath, "r"));
+
+    // Responds with the total characters count
     res.json({ total_characters: characterCount });
   } catch (err) {
     // console.error(err);
