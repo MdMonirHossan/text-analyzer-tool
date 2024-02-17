@@ -43,8 +43,6 @@ describe("GET /word-count", () => {
       .get("/word-count")
       .query({ file_path: "wrong.txt" });
     expect(response.statusCode).toBe(500);
-    expect(response.body).toEqual({
-      message: "Error reading from the file",
-    });
+    expect(response.body.message).toBe("Error reading from the file");
   });
 });

@@ -31,8 +31,8 @@ const port = 3000;
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(port, () => {
-    console.log(`Starting express server at http://localhost:${port}`);
-    console.log(
+    logger.info(`Starting express server at http://localhost:${port}`);
+    logger.info(
       `Swagger documentation is on http://localhost:${port}/api-docs`
     );
   });

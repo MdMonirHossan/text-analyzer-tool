@@ -8,11 +8,10 @@ const {
   countParagraphs,
   longestWords,
 } = require("../utils/text-analyzer.util");
+const { readFileData } = require("../utils/file.utils");
+const logger = require("../logger");
 
 const router = express.Router();
-
-// Get the text file path
-const filePath = path.join(__dirname, "../../sample.txt");
 
 /**
  * @swagger
@@ -46,25 +45,19 @@ router.get("/word-count", (req, res) => {
   // Get the file_path from the query if it provided
   const { file_path } = req.query;
   console.log("---------- File Path: " + file_path);
-  try {
-    const text = fs.readFileSync(
-      file_path ? path.join(__dirname, file_path) : filePath,
-      "utf8"
-    );
 
+  // Get file data from the utils function
+  const text = readFileData(file_path, res);
+  console.log("---------- Text: " + text);
+  if (text) {
     // Get the word count from utils function
     const wordCount = countWords(text);
     console.log(`word count ${wordCount}`);
 
-    // Explicitly close file descriptor
-    fs.closeSync(fs.openSync(filePath, "r"));
-
     // Responds with the total words count
     res.json({ total_words: wordCount });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({ message: "Error reading from the file" });
   }
+  return;
 });
 
 /**
@@ -83,25 +76,18 @@ router.get("/character-count", (req, res) => {
   // Get the file_path from the query if it provided
   const { file_path } = req.query;
   console.log("---------- File Path: " + file_path);
-  try {
-    const text = fs.readFileSync(
-      file_path ? path.join(__dirname, file_path) : filePath,
-      "utf8"
-    );
 
+  // Get file data from the utils function
+  const text = readFileData(file_path, res);
+  if (text) {
     // Get the character count from utils function
     const characterCount = countCharacters(text);
     console.log(`character count ${characterCount}`);
 
-    // Explicitly close file descriptor
-    fs.closeSync(fs.openSync(filePath, "r"));
-
-    // Responds with the total characters count
+    // Responds with the total words count
     res.json({ total_characters: characterCount });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({ message: "Error reading from the file" });
   }
+  return;
 });
 
 /**
@@ -120,29 +106,18 @@ router.get("/sentence-count", (req, res) => {
   // Get the file_path from the query if it provided
   const { file_path } = req.query;
   console.log("---------- File Path: " + file_path);
-  try {
-    /* Read the text file
-     * if file path is found in the query then read from query file path.
-     * otherwise read from from the default file path
-     */
-    const text = fs.readFileSync(
-      file_path ? path.join(__dirname, file_path) : filePath,
-      "utf8"
-    );
 
+  // Get file data from the utils function
+  const text = readFileData(file_path, res);
+  if (text) {
     // Get the sentence count
     const sentenceCount = countSentences(text);
     console.log(`sentence count ${sentenceCount}`);
 
-    // Explicitly close file descriptor
-    fs.closeSync(fs.openSync(filePath, "r"));
-
     // Responds with the total sentence count
     res.json({ total_sentences: sentenceCount });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({ message: "Error reading from the file" });
   }
+  return;
 });
 
 /**
@@ -161,29 +136,18 @@ router.get("/paragraph-count", (req, res) => {
   // Get the file_path from the query if it provided
   const { file_path } = req.query;
   console.log("---------- File Path: " + file_path);
-  try {
-    /* Read the text file
-     * if file path is found in the query then read from query file path. (For test cases only)
-     * otherwise read from from the default file path
-     */
-    const text = fs.readFileSync(
-      file_path ? path.join(__dirname, file_path) : filePath,
-      "utf8"
-    );
 
+  // Get file data from the utils function
+  const text = readFileData(file_path, res);
+  if (text) {
     // Get the paragraph count
     const paragraphCount = countParagraphs(text);
     console.log(`paragraph count ${paragraphCount}`);
 
-    // Explicitly close file descriptor
-    fs.closeSync(fs.openSync(filePath, "r"));
-
     // Responds with the total paragraph count
     res.json({ total_paragraphs: paragraphCount });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({ message: "Error reading from the file" });
   }
+  return;
 });
 
 /**
@@ -202,29 +166,18 @@ router.get("/longest-words", (req, res) => {
   // Get the file_path from the query if it provided
   const { file_path } = req.query;
   console.log("---------- File Path: " + file_path);
-  try {
-    /* Read the text file
-     * if file path is found in the query then read from query file path. (For test cases only)
-     * otherwise read from from the default file path
-     */
-    const text = fs.readFileSync(
-      file_path ? path.join(__dirname, file_path) : filePath,
-      "utf8"
-    );
 
+  // Get file data from the utils function
+  const text = readFileData(file_path, res);
+  if (text) {
     // Get the list of longest words
     const longestWordsInParagraph = longestWords(text);
     console.log(`longest words ${longestWordsInParagraph}`);
 
-    // Explicitly close file descriptor
-    fs.closeSync(fs.openSync(filePath, "r"));
-
     // Responds with the list of longest words
     res.json({ longest_words: longestWordsInParagraph });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({ message: "Error reading from the file" });
   }
+  return;
 });
 
 module.exports = router;
