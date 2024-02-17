@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/app.js",
     "test": "jest --runInBand --detectOpenHandles --forceExit",
-    "sentence-test": "jest --testPathPattern=test/sentence-count.route.test.js --forceExit"
+    "sentence-test": "jest --testPathPattern=test/sentence-count.route.test.js --forceExit",
+    "paragraph-test": "jest --testPathPattern=test/paragraph-count.route.test.js --forceExit"
   },
   "jest": {
     "testEnvironment": "node",
