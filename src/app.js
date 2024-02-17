@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const swaggerSetup = require("./swagger/swagger-setup");
 const textAnalyzerRoutes = require("./routes/text-analyzer.route");
@@ -24,14 +25,14 @@ app.use("/api", textAnalyzerRoutes);
 // Integrate swagger documentation
 swaggerSetup(app);
 
-const port = 3000;
+const port = process.env.PORT;
 
 // app.listen(port);
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(port, () => {
-    logger.debug(`Starting express server at http://localhost:${port}`);
-    logger.debug(
+    logger.info(`Starting express server at http://localhost:${port}`);
+    logger.info(
       `Swagger documentation is on http://localhost:${port}/api-docs`
     );
   });

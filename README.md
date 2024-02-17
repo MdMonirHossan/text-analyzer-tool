@@ -133,3 +133,5 @@ The project defines several logging levels to categorize log messages based on t
 ### Viewing Logs
 
 All log messages are written to the specified `logs` folder with the relevant file name like `error.log`, `warn.log`, `info.log`.
+
+`Note`: If `logs` folder does not create automatically then create a new `logs` folder in root directory.
